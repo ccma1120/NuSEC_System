@@ -12,9 +12,9 @@ sequenceDiagram
     o ->> o: Generate certificate for <br/> RootCA, ICA and Webserver
     Note over o: Certificate of RootCA, ICA and Webserver
     o ->> n: Send
-    Note right of o: WebServer Certificate
+    Note right of o: RootCA Certificate
     n ->> p: Program to flash (SWD)
-    Note right of t: WebServer Certificate
+    Note right of t: RootCA Certificate
     n ->> p: Program to SRAM (SWD)
     Note right of t: DevAuth.bin
     p ->> p: Run
