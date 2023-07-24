@@ -7,10 +7,10 @@ sequenceDiagram
 	participant n as Desktop PC (NuSec.py)
 	participant t as Adapter (Programmer Temp)
 	participant p as Target Board (Programmer CM)
-    o ->> o: Generate private key for <br/>RootCA, ICA and Webserver in HSM
+    o ->> o: Generate private key for <br/>RootCA, ICA in HSM
     Note over o: Private key
-    o ->> o: Generate certificate for <br/> RootCA, ICA and Webserver
-    Note over o: Certificate of RootCA, ICA and Webserver
+    o ->> o: Generate certificate for <br/> RootCA, ICA 
+    Note over o: Certificate of RootCA, ICA 
     o ->> n: Send
     Note right of o: RootCA Certificate
     n ->> p: Program to flash (SWD)
@@ -45,7 +45,7 @@ sequenceDiagram
     end
 
     Rect rgb(227, 244, 244)
-    n ->> o: Ask EJBCA server to generate<br/>private key for Programmer CM
+    n ->> o: Ask REST API server to generate<br/>private key for Programmer CM
     Note over o: SECURE_BOOT_PRI_NL3
     o ->> o: Generate using SECURE_BOOT_PRI_NL3
     Note over o: ROTPK
