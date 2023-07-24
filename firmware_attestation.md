@@ -35,13 +35,13 @@ sequenceDiagram
     t ->> t : Boot from SecureBoot to MCUBoot
     
     %% ECDH
-    t ->> t: Generate private key for <br/> AES key to KeyStore
+    t ->> t: Generate private key for <br/> ECC key to KeyStore
     Note over t: private key A
     t ->> t: Generate using private key
     Note over t: public key A
     t ->> a: Send
     Note left of t: public key A
-    a ->> a: Generate private key for <br/> AES key to KeyStore
+    a ->> a: Generate private key for <br/> ECC key to KeyStore
     Note over a: private key B
     a ->> a: Generate using private key
     Note over a: public key B
