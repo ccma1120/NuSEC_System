@@ -24,7 +24,7 @@ sequenceDiagram
     Note right of a: Signature
     a ->> a : Generate
     Note over a: Certificate Signing Request(CSR)
-    a ->> c : Send to EJBCA server
+    a ->> c : Send to REST API server, using WIFI interface and HTTPS protocol
     Note left of a : Certificate Signing Request(CSR)
     c ->> a : Create
     Note right of c: Device Certificate
