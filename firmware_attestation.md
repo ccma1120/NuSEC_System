@@ -31,8 +31,8 @@ sequenceDiagram
     Note right of c : Signature_APP
     c ->> a : Send
     Note right of c : SecureBoot_PUB_A_APP
-    a ->> t : Issue secure lock & chip reset (debugger interface, after lock debugger interface, communicate with serial port)
-    t ->> t : Boot from SecureBoot 
+    a ->> t : Issue debugger interface lock (after lock, communicate with serial port)
+    t ->> t : Reboot from SecureBoot 
     
     %% ECDH
     t ->> t: Generate private key for <br/> ECC key to KeyStore
