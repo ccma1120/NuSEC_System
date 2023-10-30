@@ -19,9 +19,9 @@ sequenceDiagram
     Note right of c : SecureBoot_PUB_A
     c ->> a : Send
     Note right of c : APP_FW & BootLoader_FW
-    a ->> t : Program (SWD)
+    a ->> t : Program (debugger interface)
     Note right of a : BootLoader_FW (with Signature_BootLoader)
-    a ->> t : Program (SWD)
+    a ->> t : Program (debugger interface)
     Note right of a : SecureBoot_PUB_A
     c ->> c : Generate key pair for UID_A
     Note over c : SecureBoot_PRI_A_APP & SecureBoot_PUB_A_APP
@@ -31,7 +31,7 @@ sequenceDiagram
     Note right of c : Signature_APP
     c ->> a : Send
     Note right of c : SecureBoot_PUB_A_APP
-    a ->> t : Issue secure lock & chip reset (SWD)
+    a ->> t : Issue secure lock & chip reset (debugger interface, after lock debugger interface, communicate with serial port)
     t ->> t : Boot from SecureBoot 
     
     %% ECDH
