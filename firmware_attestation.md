@@ -12,15 +12,15 @@ sequenceDiagram
     c ->> c : Generate key pair for UID_A
     Note over c : SecureBoot_PRI_A & SecureBoot_PUB_A
     c ->> c : Sign BootLoader_FW with SecureBoot_PRI_A
-    Note over c : Signature_BL2
+    Note over c : Signature_BootLoader
     c ->> a : Send
-    Note right of c : Signature_BL2
+    Note right of c : Signature_BootLoader
     c ->> a : Send
     Note right of c : SecureBoot_PUB_A
     c ->> a : Send
     Note right of c : APP_FW & BootLoader_FW
     a ->> t : Program (SWD)
-    Note right of a : BootLoader_FW (with Signature_BL2)
+    Note right of a : BootLoader_FW (with Signature_BootLoader)
     a ->> t : Program (SWD)
     Note right of a : SecureBoot_PUB_A
     c ->> c : Generate key pair for UID_A
