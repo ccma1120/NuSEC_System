@@ -5,7 +5,7 @@ sequenceDiagram
     participant d as Desktop PC
     participant a as Adapter (Debugger)
     participant t as Target Board (MCU UID_A)
-    t ->> a : Get (SWD)
+    t ->> a : Get (debugger interface)
     Note right of a: UID_A
     a ->> c : Send
     Note left of a: UID_A
