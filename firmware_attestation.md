@@ -3,36 +3,36 @@ sequenceDiagram
     autonumber
     participant c as Cloud Server
     participant d as Desktop PC
-    participant a as Adapter (Nulink3)
+    participant a as Adapter (Debugger)
     participant t as Target Board (MCU UID_A)
     t ->> a : Get (SWD)
     Note right of a: UID_A
     a ->> c : Send
     Note left of a: UID_A
     c ->> c : Generate key pair for UID_A
-    Note over c : SECURE_BOOT_PRI_A & ROTPK_A
-    c ->> c : Sign MCUBoot_FW with SECURE_BOOT_PRI_A
+    Note over c : SecureBoot_PRI_A & SecureBoot_PUB_A
+    c ->> c : Sign BootLoader_FW with SecureBoot_PRI_A
     Note over c : Signature_BL2
     c ->> a : Send
     Note right of c : Signature_BL2
     c ->> a : Send
-    Note right of c : ROTPK_A
+    Note right of c : SecureBoot_PUB_A
     c ->> a : Send
-    Note right of c : APP_FW & MCUBoot_FW
+    Note right of c : APP_FW & BootLoader_FW
     a ->> t : Program (SWD)
-    Note right of a : MCUBoot_FW (with Signature_BL2)
+    Note right of a : BootLoader_FW (with Signature_BL2)
     a ->> t : Program (SWD)
-    Note right of a : ROTPK_A
+    Note right of a : SecureBoot_PUB_A
     c ->> c : Generate key pair for UID_A
-    Note over c : SECURE_BOOT_PRI_A_BL3 & PK_BL3_A
-    c ->> c : Sign APP_FW with SECURE_BOOT_PRI_A_BL3
-    Note over c : Signature_BL3
+    Note over c : SecureBoot_PRI_A_APP & SecureBoot_PUB_A_APP
+    c ->> c : Sign APP_FW with SecureBoot_PRI_A_APP
+    Note over c : Signature_APP
     c ->> a : Send
-    Note right of c : Signature_BL3
+    Note right of c : Signature_APP
     c ->> a : Send
-    Note right of c : PK_BL3_A
+    Note right of c : SecureBoot_PUB_A_APP
     a ->> t : Issue secure lock & chip reset (SWD)
-    t ->> t : Boot from SecureBoot to MCUBoot
+    t ->> t : Boot from SecureBoot 
     
     %% ECDH
     t ->> t: Generate private key for <br/> ECC key to KeyStore
@@ -52,7 +52,7 @@ sequenceDiagram
     a ->> a: Generate shared AES key using ECDH
     Note over a: AES_SESSION key
 
-    a ->> a: Attach signature_BL3 & PK_BL3_A to APP_FW
+    a ->> a: Attach signature_APP & SecureBoot_PUB_A_APP to APP_FW
     Note over a: APP_FW
     a ->> a: Encrypt with AES_SESSION key
     Note over a: APP_FW
@@ -60,6 +60,6 @@ sequenceDiagram
     Note right of a: APP_FW
     t ->> t: Decrypt with AES_SESSION key
     Note over t: APP_FW
-    t ->> t: Program to BL3 address
+    t ->> t: Program to APP address
     Note over t: APP_FW
 ```
