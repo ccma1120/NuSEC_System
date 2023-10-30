@@ -31,25 +31,13 @@ sequenceDiagram
     Note right of c : Signature_APP
     c ->> a : Send
     Note right of c : SecureBoot_PUB_A_APP
-    a ->> t : Issue debugger interface lock (after lock, communicate with serial port)
-    t ->> t : Reboot from SecureBoot 
+    a ->> t : Disable debugger interface (via debugger interface)
+    t ->> t : Reboot and run SecureBoot loader (communicate with serial port)
     
     %% ECDH
-    t ->> t: Generate private key for <br/> ECC key to KeyStore
-    Note over t: private key A
-    t ->> t: Generate using private key
-    Note over t: public key A
-    t ->> a: Send
-    Note left of t: public key A
-    a ->> a: Generate private key for <br/> ECC key to KeyStore
-    Note over a: private key B
-    a ->> a: Generate using private key
-    Note over a: public key B
-    a ->> t: Send
-    Note right of a: public key B
-    t ->> t: Generate shared AES key using ECDH
+    t ->> a: Generate shared AES key using ECDH
+    a ->> t: Generate shared AES key using ECDH
     Note over t: AES_SESSION key
-    a ->> a: Generate shared AES key using ECDH
     Note over a: AES_SESSION key
 
     a ->> a: Attach signature_APP & SecureBoot_PUB_A_APP to APP_FW
