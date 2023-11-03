@@ -11,46 +11,37 @@ sequenceDiagram
     Note over o: [HSM] ROOTCA_PRI, ICA_PRI
     o ->> o: Generate certificate for <br/> RootCA, ICA 
     Note over o: [HSM] RootCA_CERT, ICA_CERT
-    o ->> n: Send RootCA Certificate
-    n ->> p: Program to flash (SWD)
-    Note over p: [OTP memory] RootCA Certificate
-    n ->> p: Program to SRAM (SWD)
-    Note over p: [SRAM] DevAuth.bin
-    p ->> p: Run DevAuth.bin
+    o ->> n: Send RootCA/ICA Certificate
+    n ->> p: Program RootCA/ICA Certificate to flash (SWD)
+    Note over p: [OTP_MEMORY] RootCA/ICA Certificate
+    n ->> p: Program KeyGen snippet code to SRAM (SWD)
+    Note over p: [SRAM] KeyGen snippet code
+    p ->> p: Run KeyGen snippet code
 
-    Rect rgb(210, 233, 233)
+    Rect rgb(0, 0, 233)
     p ->> n: Talk with host
-    p ->> p: Generate private key for <br/>device authentication to KeyStore
-    Note over p: AUTHKEY_PRI
-    p ->> p: Generate using AUTHKEY_PRI
-    Note over p: AUTHKEY_PUB
-    p ->> n: Send
-    Note left of p: AUTHKEY_PUB
-    n ->> p: Send
-    Note right of n: CertificationRequestInfo
-    p ->> p: Generate using AUTHKEY_PRI
-    Note over p: Signature
-    p ->> n: Send
-    Note left of p: Signature
-    n ->> n: Generate
-    Note over n: Certificate Signing Request(CSR)
-    n ->> o: Request
-    Note left of n: Certificate Signing Request(CSR)
-    o ->> n: Create
-    Note right of o: NuLink3 Certificate
-    n ->> p: Program
-    Note right of n: NuLink3 Certificate
+    p ->> p: Generate private key for <br/>NuLink3 authentication to KeyStore
+    Note over p: [KEY_STORE] AUTH_PRI_NuLink3
+    p ->> p: Generate public key pair
+    Note over p: [KEY_STORE] AUTH_PUB_NuLink3
+    p ->> n: Send AUTH_PUB_NuLink3
+    n ->> p: Send CertificationRequestInfo
+    p ->> p: Sign CertificationRequestInfo by AUTH_PRI_NuLink3
+    p ->> n: Send Signature
+    n ->> n: Generate Certificate Signing Request(CSR) <br/>by AUTH_PUB_NuLink3, Signature, UID
+    n ->> o: Request certificate of NuLink3 by CSR
+    o ->> n: Create NuLink3 Certificate
+    n ->> p: Program NuLink3 Certificate
+    Note right of n: [OTP_MEMORY] NuLink3 Certificate
     end
 
-    Rect rgb(227, 244, 244)
-    n ->> o: Ask REST API server to generate<br/>private key for Programmer CM
-    Note over o: SECURE_BOOT_PRI_NL3
-    o ->> o: Generate using SECURE_BOOT_PRI_NL3
-    Note over o: ROTPK
-    o ->> n: Send
-    Note right of o: ROTPK
-    n ->> p: Burn
-    Note right of n: ROTPK
+    Rect rgb(227, 0, 0)
+    n ->> o: Ask REST API server to generate<br/>secure boot key pair for NuLink3 <br/>(Secure programmer provided by CM) 
+    o ->> o: Generate secure boot key pair for NuLink3
+    Note over o: [HSM] SecureBoot_PRI_NuLink3, <br/>SecureBoot_PUB_NuLink3 (ROTPK)
+    o ->> n: Send SecureBoot_PUB_NuLink3
+    n ->> p: Burn SecureBoot_PUB_NuLink3
+    Note over p: [OTP_MEMORY] SecureBoot_PUB_NuLink3
     n ->> o: Send
     Note left of n: NuLink3 firmware
     o ->> o: Sign it with SECURE_BOOT_PRI_NL3
@@ -64,7 +55,7 @@ sequenceDiagram
     p ->> p: Enable secure lock
     
     %%ECDH
-    rect rgb(196, 223, 223)
+    rect rgb(0, 155, 0)
     p ->> p: Generate private key for <br/> AES key to KeyStore
     Note over p: private key A
     p ->> p: Generate using private key
