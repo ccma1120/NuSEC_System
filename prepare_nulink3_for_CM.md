@@ -17,7 +17,7 @@ sequenceDiagram
     n ->> p: Program KeyGen snippet code to SRAM (SWD)
     Note over p: [SRAM] KeyGen snippet code
 
-    Rect rgb(0, 0, 200)
+    Rect rgb(200, 0, 200)
     p ->> p: Run KeyGen snippet code
     p ->> p: Generate private key for <br/>NuLink3 authentication to KeyStore
     Note over p: [KEY_STORE] AUTH_PRI_NuLink3
