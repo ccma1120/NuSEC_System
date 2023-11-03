@@ -17,7 +17,7 @@ sequenceDiagram
     n ->> p: Program KeyGen snippet code to SRAM (SWD)
     Note over p: [SRAM] KeyGen snippet code
 
-    Rect rgb(0, 0, 100)
+    Rect rgb(0, 0, 200)
     p ->> p: Run KeyGen snippet code
     p ->> p: Generate private key for <br/>NuLink3 authentication to KeyStore
     Note over p: [KEY_STORE] AUTH_PRI_NuLink3
@@ -34,7 +34,7 @@ sequenceDiagram
     Note over p: [OTP_MEMORY] NuLink3 Certificate
     end
 
-    Rect rgb(100, 0, 0)
+    Rect rgb(200, 0, 0)
     n ->> o: Ask REST API server to generate<br/>secure boot key pair for NuLink3 <br/>(Secure programmer provided by CM) 
     o ->> o: Generate secure boot key pair for NuLink3
     Note over o: [HSM] SecureBoot_PRI_NuLink3, <br/>SecureBoot_PUB_NuLink3 (ROTPK)
@@ -50,7 +50,7 @@ sequenceDiagram
     end
     
     %%ECDH
-    rect rgb(0, 100, 0)
+    rect rgb(0, 200, 0)
     p ->> p: Generate private key for <br/> AES key to KeyStore
     Note over p: private key A
     p ->> p: Generate using private key
