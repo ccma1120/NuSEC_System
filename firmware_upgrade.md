@@ -6,7 +6,7 @@ sequenceDiagram
     participant a as Adapter (Nulink3)
     participant t as Target Board (MCU UID_A)
 
-    c ->> c : Update APP_FW_NEW to cloud server
+    d ->> c : Update APP_FW_NEW to cloud server
     t ->> a : Get (debugger interface)
     Note right of a: UID_A
     a ->> c : Send
@@ -15,16 +15,11 @@ sequenceDiagram
     
     c ->> c : Sign APP_FW_NEW with SecureBoot_PRI_A_APP
     Note over c : Signature_APP_NEW
-    c ->> a : Send
-    Note right of c : Signature_APP_NEW
-    c ->> a : Send
-    Note right of c : SecureBoot_PUB_A_APP
-    c ->> a : Send
-    Note right of c : APP_FW_NEW
-    c ->> a : Send
-    Note right of c : Firmware Version
-    c ->> a : Send
-    Note right of c : RootCA & ICA Certificate
+    c ->> a : Send APP_FW_NEW
+    c ->> a : Send Signature_APP_NEW
+    c ->> a : Send SecureBoot_PUB_A_APP
+    c ->> a : Send Firmware Version
+    c ->> a : Send RootCA & ICA Certificate
     
     %% ECDH
     t ->> a: Generate shared AES key using ECDH
