@@ -17,7 +17,7 @@ sequenceDiagram
     n ->> p: Program KeyGen snippet code to SRAM (SWD)
     Note over p: [SRAM] KeyGen snippet code
 
-    Rect rgb(200, 0, 200)
+    Rect rgb(220, 0, 0)
     p ->> p: Run KeyGen snippet code
     p ->> p: Generate private key for <br/>NuLink3 authentication to KeyStore
     Note over p: [KEY_STORE] AUTH_PRI_NuLink3
@@ -50,23 +50,17 @@ sequenceDiagram
     end
     
     %%ECDH
-    rect rgb(0, 200, 0)
-    p ->> p: Generate private key for <br/> AES key to KeyStore
-    Note over p: private key A
-    p ->> p: Generate using private key
-    Note over p: public key A
-        p ->> o: Send
-    Note left of p: public key A
-    o ->> o: Generate private key for <br/> AES key to HSM
-    Note over o: private key B
-    o ->> o: Generate using private key
-    Note over o: public key B
-    o ->> p: Send
-    Note right of o: public key B
+    Rect rgb(220, 0, 0)
+    p ->> p: Generate ephemeral key pair for <br/> ECDH to get an symmetric AES key
+    Note over p: [KEY_STORE SRAM] private/public key pair
+    p ->> o: Send public key
+    o ->> o: Generate ephemeral key pair for <br/> ECDH to get an symmetric AES key
+    Note over o: [HSM] private/public key pair
+    o ->> p: Send public key
     p ->> p: Generate shared AES key using ECDH
-    Note over p: AES_NuLink3
+    Note over p: [KEY_STORE] AES_NuLink3
     o ->> o: Generate shared AES key using ECDH
-    Note over o: AES_NuLink3
+    Note over o: [HSM] AES_NuLink3
     end
 
 ```
