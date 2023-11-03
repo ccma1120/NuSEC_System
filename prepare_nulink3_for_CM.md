@@ -1,4 +1,4 @@
-### Prepare NuLink3 programmer for CM (by OEM)
+![image](https://github.com/ccma1120/NuSEC_System/assets/25842853/cb31bb72-5725-43ca-a61e-5e10d980890f)### Prepare NuLink3 programmer for CM (by OEM)
 
 ```mermaid
 sequenceDiagram
@@ -8,17 +8,15 @@ sequenceDiagram
 	participant t as Adapter (Programmer Temp)
 	participant p as Target Board (Programmer CM)
     o ->> o: Generate private key for <br/>RootCA, ICA in HSM
-    Note over o: Private key
+    Note over o: [HSM] ROOTCA_PRI, ICA_PRI
     o ->> o: Generate certificate for <br/> RootCA, ICA 
-    Note over o: Certificate of RootCA, ICA 
-    o ->> n: Send
-    Note right of o: RootCA Certificate
+    Note over o: [HSM] RootCA_CERT, ICA_CERT
+    o ->> n: Send RootCA Certificate
     n ->> p: Program to flash (SWD)
-    Note right of t: RootCA Certificate
+    Note over p: [OTP memory] RootCA Certificate
     n ->> p: Program to SRAM (SWD)
-    Note right of t: DevAuth.bin
-    p ->> p: Run
-    Note over p: DevAuth.bin
+    Note over p: [SRAM] DevAuth.bin
+    p ->> p: Run DevAuth.bin
 
     Rect rgb(210, 233, 233)
     p ->> n: Talk with host
