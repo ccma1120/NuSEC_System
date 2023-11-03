@@ -1,4 +1,4 @@
-![image](https://github.com/ccma1120/NuSEC_System/assets/25842853/cb31bb72-5725-43ca-a61e-5e10d980890f)### Prepare NuLink3 programmer for CM (by OEM)
+### Prepare NuLink3 programmer for CM (by OEM)
 
 ```mermaid
 sequenceDiagram
