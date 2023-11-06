@@ -55,7 +55,7 @@ sequenceDiagram
     Note over p: [KEY_STORE SRAM] private/public key pair
     p ->> o: Send public key
     o ->> o: Generate ephemeral key pair for <br/> ECDH to get an symmetric AES key
-    Note over o: [HSM] private/public key pair
+    Note over o: [HSM TEMP] private/public key pair
     o ->> p: Send public key
     p ->> p: Generate shared AES key using ECDH
     Note over p: [KEY_STORE] AES_NuLink3
