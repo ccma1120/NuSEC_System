@@ -37,7 +37,7 @@ sequenceDiagram
     Rect rgb(220, 0, 0)
     n ->> o: Ask REST API server to generate<br/>secure boot key pair for NuLink3 <br/>(Secure programmer provided by CM) 
     o ->> o: Generate secure boot key pair for NuLink3
-    Note over o: [HSM] SecureBoot_PRI_NuLink3, <br/>SecureBoot_PUB_NuLink3 (ROTPK)
+    Note over o: [HSM] SecureBoot_PRI_NuLink3 (ROTPK)
     o ->> n: Send SecureBoot_PUB_NuLink3
     n ->> p: Burn SecureBoot_PUB_NuLink3
     Note over p: [OTP_MEMORY] SecureBoot_PUB_NuLink3
