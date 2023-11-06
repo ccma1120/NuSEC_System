@@ -22,7 +22,7 @@ sequenceDiagram
     p ->> p: Generate private key for <br/>NuLink3 authentication to KeyStore
     Note over p: [KEY_STORE] AUTH_PRI_NuLink3
     p ->> p: Generate public key pair
-    Note over p: [KEY_STORE] AUTH_PUB_NuLink3
+    Note over p: AUTH_PUB_NuLink3
     p ->> n: Send AUTH_PUB_NuLink3
     n ->> p: Send CertificationRequestInfo
     p ->> p: Sign CertificationRequestInfo by AUTH_PRI_NuLink3
